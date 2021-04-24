@@ -1,0 +1,9 @@
+const hbs = require('express-handlebars');
+const express= require('express');
+const path = require('path');
+module.exports = app => {
+    app.engine('handlebars', hbs());
+    app.set('view engine', 'handlebars');
+    app.set('views',path.join(__dirname,'../views'));
+    app.use('/static',express.static(path.join(__dirname, '../../public')));
+}
