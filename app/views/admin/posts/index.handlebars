@@ -1,7 +1,17 @@
 <div class="col-12 mb-30">
     <div class="box">
-
+    </div>
+    <div class="box">
         <div class="box-body">
+            <div class="col-12 row">
+                <div class="col-9">
+                    <h1>لیست مطالب</h1>
+                </div>
+                <div>
+                    <a href="/admin/posts/create" class="button button-primary col-12"><span><i class="zmdi zmdi-check"></i>افزودن پست جدید</span>
+                    </a>
+                </div>
+            </div>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -14,16 +24,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{#each posts}}
+                {{#each presentedPosts}}
                     <tr>
-                        <th>1</th>
+                        <th>{{this.id}}</th>
                         <th><a href="{{this.slug}}">{{this.title}}</a></th>
-                        <th>{{this.author_id}}</th>
-                        <th>{{this.created_at}}</th>
-                        <th>{{this.views}}</th>
+                        <th>{{this.full_name}}</th>
+                        <th>{{this.created_at_jalali}}</th>
+                        <th>{{this.persianViews}}</th>
                         <th>
-                            <a href="#"><i class="fa fa-pencil"></i></a>
-                            <a href="#"><i class="fa fa-remove"></i></a>
+                            <a href="/admin/posts/edit/{{this.id}}"><i class="fa fa-pencil"></i></a>
+                            <a href="/admin/posts/delete/{{this.id}}"><i class="fa fa-remove"></i></a>
                         </th>
                     </tr>
                 {{/each}}
