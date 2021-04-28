@@ -1,4 +1,4 @@
-const db = require('../../database/mysql');
+const db = require('@database/mysql');
 
 exports.find = async (postId) => {
     const [rows, fields] = await db.query(
@@ -36,6 +36,7 @@ exports.delete = async (postId) => {
 }
 
 exports.update = async (postId, updateFields) => {
+    console.log(updateFields)
     const [result] = await db.query(
         `UPDATE posts
          SET ?

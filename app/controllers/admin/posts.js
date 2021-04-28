@@ -1,14 +1,12 @@
-const postsModel = require('../../models/posts');
-const usersModel = require('../../models/users');
-const dateService = require('@services/dateService');
-const langService = require('@services/langService');
-
+const postsModel = require('@models/post');
+const usersModel = require('@models/users');
+const postStatuses = require('../../models/post/postStatus');
+const postPresenter = require('../../presenters/post');
 
 exports.index = async (req, res) => {
     const posts = await postsModel.findAll();
     const presentedPosts = posts.map(post => {
-        post.created_at_jalali = langService.toPersianNumbers(dateService.toPersianDate(post.created_at));
-        post.persianViews = langService.toPersianNumbers(post.views);
+        post.presenter = new postPresenter(post);
         return post;
     });
     res.render('admin/posts/index', {layout: 'admin', presentedPosts});
@@ -72,7 +70,20 @@ exports.edit = async (req, res) => {
     }
     const post = await postsModel.find(postId);
     const users = await usersModel.findAll(['id', 'full_name']);
-    res.render('admin/posts/edit', {layout: 'admin', users, post});
+    res.render('admin/posts/edit', {
+        layout: 'admin', users, post, postStatuses: postStatuses.statuses(),
+        helpers: {
+            isPostAuthor: function (userId, options) {
+                return userId === post.author_id ? options.fn(this) : options.inverse(this);
+            },
+            isSelectedStatus: function (status, options) {
+                return status === post.status ? options.fn(this) : options.inverse(this);
+            },
+            postStatusAsText: function (status) {
+                return postStatuses.statusesAsText(status);
+            },
+        }
+    });
 }
 
 exports.update = async (req, res) => {
@@ -87,6 +98,6 @@ exports.update = async (req, res) => {
         status: req.body.postStatus,
         author_id: req.body.author_id,
     }
-    const update=await postsModel.update(postId, postData);
+    const update = await postsModel.update(postId, postData);
     res.redirect('/admin/posts');
 }

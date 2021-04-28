@@ -7,31 +7,29 @@
             <form action="/admin/posts/update/{{post.id}}" method="POST">
                 <div class="row mbn-20">
                     <div class="col-6 mb-20">
-                        <input type="text" id="postTitle" name="postTitle" class="form-control" value="{{post.title}}"
+                        <input type="text" id="postTitle" name="postTitle" class="form-control"
+                               value="{{post.title}}"
                                placeholder="عنوان">
                     </div>
                     <div class="col-6 mb-20">
-                        <input type="text" id="postSlug" name="postSlug" class="form-control" value="{{post.slug}}"
+                        <input type="text" id="postSlug" name="postSlug" class="form-control"
+                               value="{{post.slug}}"
                                placeholder="لینک">
                     </div>
                     <div class="col-12 mb-20">
                         <textarea type="text" id="postContent" name="postContent"
                                   class="form-control"
-                                  placeholder="محتوا">value="{{post.content}}"</textarea>
+                                  placeholder="محتوا">{{post.content}}"</textarea>
                     </div>
 
                     <div class="col-sm-12 mb-20">
                         <h6 class="mb-15">وضعیت مطلب</h6>
                         <div class="adomx-checkbox-radio-group">
-                            <label class="adomx-radio"><input type="radio" value="0"
-                                                              name="postStatus" checked=""> <i
-                                    class="icon"></i>پیش نویس</label>
-                            <label class="adomx-radio"><input type="radio" value="2"
-                                                              name="postStatus"> <i
-                                    class="icon"></i>منتشر شده</label>
-                            <label class="adomx-radio"><input type="radio" value="1"
-                                                              name="postStatus"> <i
-                                    class="icon"></i>در حال بازبینی</label>
+                            {{#each postStatuses}}
+                                <label class="adomx-radio"><input type="radio" value="{{this}}"
+                                      {{#isSelectedStatus this}}checked{{/isSelectedStatus}}
+                                      name="postStatus"> <i class="icon"></i>{{postStatusAsText this}}</label>
+                            {{/each}}
                         </div>
                     </div>
 
@@ -39,14 +37,15 @@
                         <h6 class="mb-15">کاربر</h6>
                         <select name="author_id" class="form-control">
                             {{#each users}}
-                                <option value="{{this.id}}">{{this.full_name}}</option>
+                                <option value="{{this.id}}"{{#isPostAuthor
+                                        this.id}}selected{{/isPostAuthor}}>{{this.full_name}}</option>
                             {{/each}}
                         </select>
                     </div>
 
                     <div class="col-12 mb-20">
                         <input type="submit" class="button button-primary w-100"
-                               value="ایجاد پست">
+                               value="بروزرسانی پست">
                     </div>
                 </div>
             </form>

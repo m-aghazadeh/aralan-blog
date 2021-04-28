@@ -1,0 +1,49 @@
+<div class="col-12 mb-30">
+    <div class="box">
+        <div class="box-body">
+            <div class="col-12 row">
+                <h1>لیست دیدگاه ها</h1>
+            </div>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>نویسنده</th>
+                    <th>دیدگاه</th>
+                    <th>در پاسخ به</th>
+                    <th>تاریخ ایجاد</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each presentedComments}}
+                    <tr class="{{commentBackgroundCss this.status}}">
+                        <th>{{this.id}}</th>
+                        <th class="avatar-wrap d-flex align-items-center flex-wrap mbn-10">
+                            <div class="avatar avatar-sm ml-10">
+                                <img src="{{this.user_avatar}}" alt="">
+                                <span class="status"></span>
+                            </div>
+                            {{this.user_name}}</th>
+                        <th>
+                            <p>{{this.comment}}</p>
+                            <div>
+                                <a href="/admin/comments/approve/{{this.id}}"
+                                   class="button button-xs button-success">تایید</a>
+                                <a href="/admin/comments/reject/{{this.id}}"
+                                   class="button button-xs button-warning">رد</a>
+                                <a href="/admin/comments/delete/{{this.id}}"
+                                   class="button button-xs button-danger">حذف</a>
+                            </div>
+                        </th>
+                        <th>
+                            <p>{{this.title}}</p>
+                        </th>
+
+                        <th>{{this.created_at_jalali}}</th>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
