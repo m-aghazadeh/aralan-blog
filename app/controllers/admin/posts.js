@@ -1,15 +1,17 @@
-const postsModel = require('@models/post');
-const usersModel = require('@models/users');
+const postsModel = require('../../models/post');
+const usersModel = require('@models/user');
 const postStatuses = require('../../models/post/postStatus');
 const postPresenter = require('../../presenters/post');
+const postValidator=require('../../validators/post')
 
 exports.index = async (req, res) => {
     const posts = await postsModel.findAll();
+    console.log(posts)
     const presentedPosts = posts.map(post => {
         post.presenter = new postPresenter(post);
         return post;
     });
-    res.render('admin/posts/index', {layout: 'admin', presentedPosts});
+    res.render('admin/posts/index', {layout: 'admin', posts:presentedPosts,success:req.flash('success')});
 }
 
 exports.create = async (req, res) => {
@@ -18,7 +20,6 @@ exports.create = async (req, res) => {
 }
 
 exports.store = async (req, res) => {
-    const errors = [];
     let hasError = false;
     const postData = {
         title: req.body.postTitle,
@@ -27,28 +28,15 @@ exports.store = async (req, res) => {
         status: req.body.postStatus,
         author_id: req.body.author_id,
     }
+    const errors = postValidator.create(postData);
 
-    if (postData.title === '') {
-        hasError = true;
-        errors.push('فیلد عنوان نمیتواند خالی باشد.')
-    }
-
-    if (postData.slug === '') {
-        hasError = true;
-        errors.push('فیلد نامک نمیتواند خالی باشد.')
-    }
-
-    if (postData.content === '') {
-        hasError = true;
-        errors.push('فیلد محتوا نمیتواند خالی باشد.')
-    }
-
-    if (hasError) {
+    if (errors.length>0) {
         const users = await usersModel.findAll(['id', 'full_name']);
-        res.render('admin/posts/create', {layout: 'admin', users, hasError, errors});
+        res.render('admin/posts', {layout: 'admin', users, hasError, errors});
     } else {
         const insertId = await postsModel.create(postData);
         if (insertId) {
+            req.flash('success', 'پست با موفقیت ایجاد شد');
             res.redirect('/admin/posts');
         }
     }
@@ -99,5 +87,6 @@ exports.update = async (req, res) => {
         author_id: req.body.author_id,
     }
     const update = await postsModel.update(postId, postData);
+    req.flash('success','پست با موفقیت بروزرسانی شد');
     res.redirect('/admin/posts');
 }

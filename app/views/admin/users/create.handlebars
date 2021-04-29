@@ -1,0 +1,55 @@
+<div class="col-12 mb-30">
+    <div class="box">
+        <div class="box-head">
+            <h4 class="title">افزودن کاربر جدید</h4>
+        </div>
+        <div class="box-body">
+            {{#if errors}}
+                {{#each errors}}
+                    <div class="alert alert-secondary" role="alert">
+                        <i class="zmdi zmdi-info"></i> {{this}}
+                    </div>
+                {{/each}}
+            {{/if}}
+            <form action="/admin/users/store" method="POST">
+                <div class="row mbn-20">
+
+                    <div class="col-6 mb-20">
+                        <input type="text" id="full_name" name="full_name" class="form-control"
+                               placeholder="نام کامل">
+                    </div>
+                    <div class="col-6 mb-20">
+                        <input type="email" id="email" name="email" class="form-control"
+                               placeholder="ایمیل">
+                    </div>
+                    <div class="col-6 mb-20">
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="رمز عبور">
+                    </div>
+                    <div class="col-sm-12 mb-20">
+                        <h6 class="mb-15">نقش کاربری</h6>
+                        <div class="adomx-checkbox-radio-group">
+                            <label class="adomx-radio">
+                                <input type="radio" value="0" name="role" checked>
+                                <i class="icon"></i>کاربری
+                            </label>
+                            <label class="adomx-radio">
+                                <input type="radio" value="1" name="role">
+                                <i class="icon"></i>نویسنده
+                            </label>
+                            <label class="adomx-radio">
+                                <input type="radio" value="2" name="role">
+                                <i class="icon"></i>مدیر
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-20">
+                        <input type="submit" class="button button-primary w-100"
+                               value="ایجاد کاربر جدید">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Default Form End-->

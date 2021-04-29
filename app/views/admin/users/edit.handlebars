@@ -1,0 +1,54 @@
+<div class="col-12 mb-30">
+    <div class="box">
+        <div class="box-head">
+            <h4 class="title">افزودن کاربر جدید</h4>
+        </div>
+        <div class="box-body">
+            {{#if errors}}
+                {{#each errors}}
+                    <div class="alert alert-secondary" role="alert">
+                        <i class="zmdi zmdi-info"></i> {{this}}
+                    </div>
+                {{/each}}
+            {{/if}}
+            <form action="/admin/users/update/{{user.id}}" method="POST">
+                <div class="row mbn-20">
+
+                    <div class="col-6 mb-20">
+                        <input type="text" id="full_name" name="full_name" class="form-control"
+                               value="{{user.full_name}}"
+                               placeholder="نام کامل">
+                    </div>
+                    <div class="col-6 mb-20">
+                        <input type="email" id="email" name="email" class="form-control"
+                               value="{{user.email}}"
+                               placeholder="ایمیل">
+                    </div>
+                    <div class="col-6 mb-20">
+                        <input type="password" id="password" name="password" class="form-control"
+                               value="{{user.password}}"
+                               placeholder="رمز عبور">
+                    </div>
+
+                    <div class="col-sm-12 mb-20">
+                        <h6 class="mb-15">نقش کاربری</h6>
+                        <div class="adomx-checkbox-radio-group">
+                            {{#each userRoles}}
+                                <label class="adomx-radio"><input type="radio" value="{{this}}"
+                                                                  {{#isSelectedRole
+                                                                          this}}checked{{/isSelectedRole}}
+                                                                  name="role"> <i
+                                        class="icon"></i>{{userStatusAsText this}}</label>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="col-12 mb-20">
+                        <input type="submit" class="button button-primary w-100"
+                               value="بروزرسانی کابر">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Default Form End-->

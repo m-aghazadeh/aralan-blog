@@ -36,7 +36,6 @@ exports.delete = async (postId) => {
 }
 
 exports.update = async (postId, updateFields) => {
-    console.log(updateFields)
     const [result] = await db.query(
         `UPDATE posts
          SET ?
