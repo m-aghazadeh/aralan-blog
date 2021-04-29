@@ -51,4 +51,4 @@ exports.update = async (userId, updateFields) => {
          SET ?
          WHERE id = ? LIMIT 1`, [newUserData, userId]);
     return result.affectedRows > 0;
-}
+} 
