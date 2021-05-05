@@ -1,0 +1,54 @@
+<div class="col-12 mb-30">
+    <div class="box">
+        <div class="box-head">
+            <h4 class="title">تنظیمات</h4>
+        </div>
+        <div class="box-body">
+            <form action="/admin/settings/store" method="POST">
+                <div class="row mbn-20">
+
+                    <div class="col-md-4 col-sm-1 row">
+                        <h6 class="mb-15">عمومی</h6>
+                        <div class="col-12 row mb-20">
+                            <input type="text" id="website_title" name="website_title"
+                                   value="{{config.website_title}}"
+                                   class="form-control"
+                                   placeholder="عنوان سایت">
+                        </div>
+
+                        <div class="col-12 row mb-20">
+                                <textarea id="website_description" name="website_description"
+                                          class="form-control"
+                                          placeholder="شرح وبسایت">{{config.website_description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-1 mb-20">
+                        <h6 class="mb-15">محتوا</h6>
+                        <input type="number" id="posts_per_page"
+                               name="posts_per_page" value="{{config.posts_per_page}}"
+                               class="form-control"
+                               placeholder="تعداد پست ها در صفحه">
+                        <label for="users_can_submit_comment">
+                            <input type="checkbox" value="1" {{#isChecked config.users_can_submit_comment}}checked{{/isChecked}}
+                                   name="users_can_submit_comment"
+                                   id="users_can_submit_comment">کاربران
+                            میتوانند دیدگاه ثبت کنند</label>
+                    </div>
+                    <div class="col-md-4 col-sm-1 mb-20">
+                        <h6 class="mb-15">عضویت</h6>
+                        <label for="users_can_register"><input type="checkbox" value="1" {{#isChecked config.users_can_register}}checked{{/isChecked}}
+                                                               name="users_can_register"
+                                                               id="users_can_register">هرکسی میتواند
+                            در سایت ثبت نام کند</label>
+                    </div>
+
+                    <div class="col-12 mb-20">
+                        <input type="submit" class="button button-primary w-100"
+                               value="بروز رسانی تنظیمات">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Default Form End-->
