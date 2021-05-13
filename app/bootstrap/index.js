@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookeiParser = require('cookie-parser');
 const flash = require('connect-flash');
+const redisSessionStore=require('./session-handlers/redis')(session);
+
 
 module.exports = app => {
     app.use(bodyParser.json());
@@ -18,7 +20,8 @@ module.exports = app => {
         secret: 'awsedfwsdeyg64454edffg54r5ty',
         resave: true,
         saveUninitialized: true,
-        cookie: {maxAge: 6000}
+        cookie: {maxAge: 600000},
+        store: redisSessionStore||null
     }));
     app.use(flash());
-}
+} 
