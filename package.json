@@ -2,7 +2,7 @@
   "name": "arv-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -35,5 +35,8 @@
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "redbird": "^0.10.0"
+  },
+  "devDependencies": {
+    "express-back": "^0.0.2"
   }
 }

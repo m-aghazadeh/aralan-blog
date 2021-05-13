@@ -1,5 +1,6 @@
 const db = require('@database/mysql');
 const hashService = require('../../services/hashService');
+
 exports.find = async (userId) => {
     const [rows, fields] = await db.query(`SELECT *
                                            FROM users
@@ -26,9 +27,16 @@ exports.findAll = async (columns = []) => {
     return rows;
 }
 
+exports.findByEmail = async (email) => {
+    const [rows] = await db.query(`
+    SELECT * FROM USERS WHERE email=? LIMIT 1`, [email]);
+
+    return rows.length === 1 ? rows[0] : null;
+}
+
 exports.create = async (userData) => {
     const hashedPassword = hashService.hashPassword(userData.password);
-    const newUserData = {...userData, password: hashedPassword};
+    const newUserData = { ...userData, password: hashedPassword };
     const [result] = await db.query(
         `INSERT INTO users
          SET ?`, [newUserData]);
@@ -45,7 +53,7 @@ exports.delete = async (userId) => {
 
 exports.update = async (userId, updateFields) => {
     const hashedPassword = hashService.hashPassword(updateFields.password);
-    const newUserData = {...updateFields, password: hashedPassword};
+    const newUserData = { ...updateFields, password: hashedPassword };
     const [result] = await db.query(
         `UPDATE users
          SET ?

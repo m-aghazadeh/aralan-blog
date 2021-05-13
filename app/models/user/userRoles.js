@@ -1,19 +1,17 @@
-const userRoles = {
+const ROLES = {
     USER: 0,
     AUTHOR: 1,
     ADMIN: 2
 }
 
 const rolesAsText = {
-    [userRoles.USER]: 'کاربر ساده',
-    [userRoles.AUTHOR]: 'نویسنده',
-    [userRoles.ADMIN]: 'مدیر',
+    [ROLES.USER]: 'کاربر ساده',
+    [ROLES.AUTHOR]: 'نویسنده',
+    [ROLES.ADMIN]: 'مدیر',
 }
 
-exports.roles = () => {
-    return userRoles;
-}
+module.exports = ROLES;
 
 exports.rolesAsText = (role = null) => {
-    return role!==null ? rolesAsText[role] : rolesAsText;
+    return role !== null ? rolesAsText[role] : rolesAsText;
 }

@@ -13,5 +13,5 @@ const persianNumbers = {
 }
 
 exports.toPersianNumbers = (input) => {
-    return String(input).split('').map(number=>persianNumbers[number]?persianNumbers[number]:number).join('');
+    return String(input).split('').map(number => persianNumbers[number] ? persianNumbers[number] : number).join('');
 }

@@ -3,8 +3,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const cookeiParser= require('cookie-parser');
+const cookeiParser = require('cookie-parser');
 const flash = require('connect-flash');
+
 module.exports = app => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
@@ -17,7 +18,7 @@ module.exports = app => {
         secret: 'awsedfwsdeyg64454edffg54r5ty',
         resave: true,
         saveUninitialized: true,
-        cookie: { maxAge:6000 }
+        cookie: {maxAge: 6000}
     }));
     app.use(flash());
 }
