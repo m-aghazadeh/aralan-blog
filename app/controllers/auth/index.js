@@ -34,3 +34,9 @@ module.exports.doRegister = async (req, res) => {
     const nweUserId = await userModule.create(userData);
     res.redirect('/auth/login');
 }
+
+module.exports.logout = async (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/auth/login')
+    })
+}

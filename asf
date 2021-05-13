@@ -1,0 +1,88 @@
+[1mdiff --git a/app/bootstrap/index.js b/app/bootstrap/index.js[m
+[1mindex ad7c85a..631089d 100644[m
+[1m--- a/app/bootstrap/index.js[m
+[1m+++ b/app/bootstrap/index.js[m
+[36m@@ -5,7 +5,7 @@[m [mconst bodyParser = require('body-parser');[m
+ const session = require('express-session');[m
+ const cookeiParser = require('cookie-parser');[m
+ const flash = require('connect-flash');[m
+[31m-const redisSessionStore=require('./session-handlers/redis')(session);[m
+[32m+[m[32mconst redisSessionStore = require('./session-handlers/redis')(session);[m
+ [m
+ [m
+ module.exports = app => {[m
+[36m@@ -21,7 +21,8 @@[m [mmodule.exports = app => {[m
+         resave: true,[m
+         saveUninitialized: true,[m
+         cookie: {maxAge: 600000},[m
+[31m-        store: redisSessionStore||null[m
+[32m+[m[32m        store: redisSessionStore,[m
+[32m+[m[32m        unset: 'destroy'[m
+     }));[m
+     app.use(flash());[m
+[31m-} [m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/controllers/auth/index.js b/app/controllers/auth/index.js[m
+[1mindex 259ceb3..b0132b3 100644[m
+[1m--- a/app/controllers/auth/index.js[m
+[1m+++ b/app/controllers/auth/index.js[m
+[36m@@ -33,4 +33,10 @@[m [mmodule.exports.doRegister = async (req, res) => {[m
+     };[m
+     const nweUserId = await userModule.create(userData);[m
+     res.redirect('/auth/login');[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mmodule.exports.logout = async (req, res) => {[m
+[32m+[m[32m    req.session.destroy(() => {[m
+[32m+[m[32m        res.redirect('/auth/login')[m
+[32m+[m[32m    })[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/app/routes/index.js b/app/routes/index.js[m
+[1mindex 7ef086b..bba55ee 100644[m
+[1m--- a/app/routes/index.js[m
+[1m+++ b/app/routes/index.js[m
+[36m@@ -3,8 +3,11 @@[m [mconst authRouter = require('./auth');[m
+ const auth = require('../midlewares/auth')[m
+ const admin = require('../midlewares/admin');[m
+ const guest = require('../midlewares/guest');[m
+[32m+[m[32mconst authControler = require('../controllers/auth');[m
+ [m
+ module.exports = app => {[m
+     app.use('/admin', [auth, admin], adminRouter);[m
+     app.use('/auth', [guest], authRouter);[m
+[32m+[m[32m    app.get('/logout', authControler.logout);[m
+[32m+[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/app/views/layouts/admin.handlebars b/app/views/layouts/admin.handlebars[m
+[1mindex 8045cc8..7c901d9 100644[m
+[1m--- a/app/views/layouts/admin.handlebars[m
+[1m+++ b/app/views/layouts/admin.handlebars[m
+[36m@@ -122,15 +122,6 @@[m
+                                                     <a href="#"><i class="zmdi zmdi-account"></i>پروفایل[m
+                                                     </a>[m
+                                                 </li>[m
+[31m-                                                <li>[m
+[31m-                                                    <a href="#">[m
+[31m-                                                        <i class="zmdi zmdi-email-open"></i>صندوق ورودی[m
+[31m-                                                    </a>[m
+[31m-                                                </li>[m
+[31m-                                                <li>[m
+[31m-                                                    <a href="#"><i class="zmdi zmdi-wallpaper"></i>فعالیت[m
+[31m-                                                    </a>[m
+[31m-                                                </li>[m
+                                             </ul>[m
+                                             <ul>[m
+                                                 <li>[m
+[36m@@ -138,7 +129,7 @@[m
+                                                     </a>[m
+                                                 </li>[m
+                                                 <li>[m
+[31m-                                                    <a href="#"><i class="zmdi zmdi-lock-open"></i>خروج[m
+[32m+[m[32m                                                    <a href="/logout"><i class="zmdi zmdi-lock-open"></i>خروج[m
+                                                     </a>[m
+                                                 </li>[m
+                                             </ul>[m
