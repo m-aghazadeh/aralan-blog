@@ -3,7 +3,8 @@ const PostPresenter = require('../../presenters/post')
 const userModel = require('../../models/user');
 const commentModel = require('../../models/comment');
 const userService = require('../../services/userService');
-const dateService = require('../../services/dateService')
+const dateService = require('../../services/dateService');
+const _ = require('lodash');
 
 exports.showPost = async (req, res) => {
     const postSlug = req.params.postSlug;
@@ -16,11 +17,25 @@ exports.showPost = async (req, res) => {
     post.author = user;
     const comments = await commentModel.findByPostId(post.id);
 
-    post.comments = comments.map(comment => {
+    const presentedcomments = comments.map(comment => {
         comment.avatar = userService.gravatar(comment.user_email);
         comment.created_at_jalali = dateService.toPersianDate(comment.created_at);
         return comment;
-    })
+    });
 
-    res.frontRender('front/single', {post, bodyClass: 'single-post'})
+    const newComments = _.groupBy(presentedcomments, 'parent')
+    res.frontRender(
+        'front/single', {
+            post,
+            comments: newComments[0],
+            bodyClass: 'single-post',
+            helpers: {
+                hasChildren: function (commentId) {
+                    return commentId in newComments;
+                },
+                getChildren: function (commnetId) {
+                    return newComments[commnetId];
+                }
+            }
+        })
 }
