@@ -3697,53 +3697,53 @@ blog
     margin-bottom: 3rem;
 }
 
-.comments-area,
-.comments {
+.single-post .comments-area,
+.single-post .comments {
     display: block;
 
     margin-bottom: 5rem;
 }
 
-.comments-area .comments-title,
-.comments .comments-title {
+.single-post .comments-area .comments-title,
+.single-post .comments .comments-title {
     font-size: 28px;
 
     margin-bottom: 5rem;
 }
 
-.comments-area ol,
-.comments-area ul,
-.comments ol,
-.comments ul {
+.single-post .comments-area ol,
+.single-post .comments-area ul,
+.single-post .comments ol,
+.single-post .comments ul {
     list-style: none;
 }
 
-.comments-area ol ol,
-.comments-area ol ul,
-.comments-area ul ol,
-.comments-area ul ul,
-.comments ol ol,
-.comments ol ul,
-.comments ul ol,
-.comments ul ul {
+.single-post .comments-area ol ol,
+.single-post .comments-area ol ul,
+.single-post .comments-area ul ol,
+.single-post .comments-area ul ul,
+.single-post .comments ol ol,
+.single-post .comments ol ul,
+.single-post .comments ul ol,
+.single-post .comments ul ul {
     list-style: none;
 }
 
-.comment-list,
-.comments > ul {
+.single-post .comment-list,
+.single-post .comments > ul {
     margin: 0;
     padding: 0;
 
     list-style: none;
 }
 
-.comment-list li,
-.comments > ul li {
+.single-post .comment-list li,
+.single-post .comments > ul li {
     margin-bottom: 1rem;
 }
 
-.comment-list li .comment-body,
-.comments > ul li .comment-body {
+.single-post .comment-list li .comment-body,
+.single-post .comments > ul li .comment-body {
     position: relative;
 
     margin-bottom: 3rem;
@@ -3752,13 +3752,13 @@ blog
     border-bottom: 1px solid #e4e6ea;
 }
 
-.comment-list .comment-meta,
-.comments > ul .comment-meta {
+.single-post .comment-list .comment-meta,
+.single-post .comments > ul .comment-meta {
     margin-bottom: 1rem;
 }
 
-.comment-list .comment-meta .comment-author img,
-.comments > ul .comment-meta .comment-author img {
+.single-post .comment-list .comment-meta .comment-author img,
+.single-post .comments > ul .comment-meta .comment-author img {
     float: right;
     width: 100px;
     height: 100px;
@@ -3766,65 +3766,65 @@ blog
     border-radius: 6px;
 }
 
-.comment-list .comment-meta .comment-author a,
-.comments > ul .comment-meta .comment-author a {
+.single-post .comment-list .comment-meta .comment-author a,
+.single-post .comments > ul .comment-meta .comment-author a {
     font-size: 16px;
     font-weight: bold;
 }
 
-.comment-list .comment-meta .comment-author .says,
-.comments > ul .comment-meta .comment-author .says {
+.single-post .comment-list .comment-meta .comment-author .says,
+.single-post .comments > ul .comment-meta .comment-author .says {
     display: none;
 }
 
-.comment-list .comment-meta .comment-metadata a,
-.comments > ul .comment-meta .comment-metadata a {
+.single-post .comment-list .comment-meta .comment-metadata a,
+.single-post .comments > ul .comment-meta .comment-metadata a {
     font-size: 14px;
 
     color: #8c8c8c;
     font-family: IRANSansWeb_Light;
 }
 
-.comment-list .comment-content,
-.comments > ul .comment-content {
+.single-post .comment-list .comment-content,
+.single-post .comments > ul .comment-content {
     overflow: hidden;
 }
 
-.comment-list .reply,
-.comments > ul .reply {
+.single-post .comment-list .reply,
+.single-post .comments > ul .reply {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.comment-list .reply a,
-.comments > ul .reply a {
+.single-post .comment-list .reply a,
+.single-post .comments > ul .reply a {
     color: #287dfe;
 }
 
-.comment-list .reply a:hover,
-.comments > ul .reply a:hover {
+.single-post .comment-list .reply a:hover,
+.single-post .comments > ul .reply a:hover {
     color: #242424;
 }
 
 @media (max-width: 991px) {
-    .comments-area .comments-title,
+    .single-post .comments-area .comments-title,
     .comment-reply-title {
         font-size: 1.5rem;
-    } کنید. موفق و س
+    }
 
-    .comments-area .comments-title {
+    .single-post .comments-area .comments-title {
         margin-bottom: 3rem;
     }
 }
 
 @media (max-width: 767px) {
-    .comments-area .comments-title,
+    .single-post .comments-area .comments-title,
     .comment-reply-title {
         font-size: 1.2rem;
     }
 
-    .comments-area .comment-list .comment-meta .comment-author img {
+    .single-post .comments-area .comment-list .comment-meta .comment-author img {
         width: 50px;
         height: auto;
     }

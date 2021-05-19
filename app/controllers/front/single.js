@@ -12,5 +12,5 @@ module.exports.single = async (req, res) => {
     const user = await userModel.find(post.author_id);
     user.avatar = userService.gravatar(user.email)
     post.author = user;
-    res.frontRender('front/single', {post})
+    res.frontRender('front/single', {post, bodyClass:'single-post'})
 }

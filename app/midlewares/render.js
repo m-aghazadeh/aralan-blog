@@ -12,7 +12,7 @@ module.exports = app => {
         }
 
         res.frontRender = (template, options) => {
-            res.render(template, {...options, layout: 'front'});
+            res.render(template, {layout: 'front', bodyClass: 'bg-gray', ...options});
         }
 
         res.newRender = (template, options) => {

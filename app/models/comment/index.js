@@ -1,4 +1,4 @@
-const db = require('@database/mysql');
+const db = require('../../../database/mysql');
 const commentStatuses = require('./commentStatus');
 
 exports.findAll = async () => {
@@ -10,6 +10,13 @@ exports.findAll = async () => {
         `);
     return rows;
 }
+
+exports.create = async (commentData) => {
+    const [result] = await db.query(`INSERT INTO comments
+                                     SET ?`, [commentData])
+    return result.insertId;
+}
+
 
 exports.delete = async (commentId) => {
     const [result] = await db.query(
@@ -32,12 +39,5 @@ exports.approve = async (commentId) => {
         `UPDATE comments
          SET status=?
          WHERE id = ? LIMIT 1`, [commentStatuses.APPROVED, commentId]);
-    return result.affectedRows > 0;
-}
-
-exports.dlete = async (commentId) => {
-    const [result] = await db.query(
-        `DELETE FROM comments
-         WHERE id = ? LIMIT 1`, [commentId]);
     return result.affectedRows > 0;
 }
