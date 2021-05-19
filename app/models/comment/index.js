@@ -2,12 +2,21 @@ const db = require('../../../database/mysql');
 const commentStatuses = require('./commentStatus');
 
 exports.findAll = async () => {
-    const [rows, fields] = await db.query(
+    const [rows] = await db.query(
         `SELECT c.*, p.title
          FROM comments c
                   JOIN posts p ON c.post_id = p.id
          ORDER BY c.created_at DESC
         `);
+    return rows;
+}
+
+exports.findByPostId = async (postId, status = commentStatuses.APPROVED) => {
+    const [rows] = await db.query(
+        `SELECT *
+         FROM comments
+         WHERE post_id = ?
+           AND status = ?`, [postId, status]);
     return rows;
 }
 
