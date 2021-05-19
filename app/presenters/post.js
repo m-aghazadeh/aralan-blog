@@ -1,10 +1,26 @@
-const dateService = require('@services/dateService');
-const langService = require('@services/langService');
+const dateService = require('../services/dateService');
+const langService = require('../services/langService');
 
-module.exports = class {
+class PostPresenter {
     constructor(post) {
-        post.created_at_jalali = langService.toPersianNumbers(dateService.toPersianDate(post.created_at));
-        post.persianViews = langService.toPersianNumbers(post.views);
-        return post;
+        this.post = post;
+    }
+
+    jalaliCreatedAt() {
+        return langService.toPersianNumbers(dateService.toPersianDate(this.post.created_at));
+    }
+
+    getViewsAsFaNumber() {
+        return langService.toPersianNumbers(this.post.views)
+    }
+
+    excerpt(words_limit = 20, suffix = ' ...') {
+        const words = this.post.content.split(' ');
+        if (words.length < words_limit) {
+            return words.join(' ') + suffix;
+        }
+        return words.slice(0, words_limit - 1) + suffix;
     }
 }
+
+module.exports = PostPresenter;

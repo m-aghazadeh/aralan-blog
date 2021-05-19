@@ -30,10 +30,12 @@
                 {{#each posts}}
                     <tr>
                         <th>{{this.id}}</th>
-                        <th><a href="{{this.slug}}">{{this.title}}</a></th>
+                        <th>
+                            <a href="{{this.slug}}">{{this.title}}</a>
+                        </th>
                         <th>{{this.full_name}}</th>
-                        <th>{{this.created_at_jalali}}</th>
-                        <th>{{this.persianViews}}</th>
+                        <th>{{this.jalali_date}}</th>
+                        <th>{{this.views_fa_num}}</th>
                         <th>
                             <a href="/admin/posts/edit/{{this.id}}"><i class="fa fa-pencil"></i></a>
                             <a href="/admin/posts/delete/{{this.id}}"><i

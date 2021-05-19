@@ -11,6 +11,10 @@ module.exports = app => {
             user.avatar = userService.gravatar(user.email);
         }
 
+        res.frontRender = (template, options) => {
+            res.render(template, {...options, layout: 'front'});
+        }
+
         res.newRender = (template, options) => {
             res.render(template, {...options, hasError, errors, success});
         }

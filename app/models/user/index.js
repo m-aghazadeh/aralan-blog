@@ -1,4 +1,4 @@
-const db = require('@database/mysql');
+const db = require('../../../database/mysql');
 const hashService = require('../../services/hashService');
 
 exports.find = async (userId) => {
@@ -29,7 +29,7 @@ exports.findAll = async (columns = []) => {
 
 exports.findByEmail = async (email) => {
     const [rows] = await db.query(`
-    SELECT * FROM USERS WHERE email=? LIMIT 1`, [email]);
+    SELECT * FROM users WHERE email=? LIMIT 1`, [email]);
 
     return rows.length === 1 ? rows[0] : null;
 }

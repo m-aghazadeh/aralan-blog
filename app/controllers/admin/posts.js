@@ -1,16 +1,18 @@
 const postsModel = require('../../models/post');
-const usersModel = require('@models/user');
+const usersModel = require('../../models/user');
 const postStatuses = require('../../models/post/postStatus');
-const postPresenter = require('../../presenters/post');
+const PostPresenter = require('../../presenters/post')
 const postValidator = require('../../validators/post')
 
 exports.index = async (req, res) => {
     const posts = await postsModel.findAll();
-    const presentedPosts = posts.map(post => {
-        post.presenter = new postPresenter(post);
+    const postsForPresent = posts.map(post => {
+        const postPresenter = new PostPresenter(post);
+        post.jalali_date = postPresenter.jalaliCreatedAt();
+        post.views_fa_num = postPresenter.getViewsAsFaNumber();
         return post;
     });
-    res.adminRender('admin/posts/index', {posts: presentedPosts});
+    res.adminRender('admin/posts/index', {posts: postsForPresent});
 }
 
 exports.create = async (req, res) => {
@@ -84,7 +86,7 @@ exports.update = async (req, res) => {
         status: req.body.postStatus,
         author_id: req.body.author_id,
     }
-    const update = await postsModel.update(postId, postData);
+    await postsModel.update(postId, postData);
     req.flash('success', 'پست با موفقیت بروزرسانی شد');
     res.redirect('/admin/posts');
 }
