@@ -1,6 +1,7 @@
 const authService = require('../../services/authService');
 const userModule = require('../../models/user')
 const userRoles = require('../../models/user/userRoles');
+const settingModel = require('../../models/settings');
 
 module.exports.showLogin = (req, res) => {
     res.newRender('auth/login', {layout: 'auth'});
@@ -20,7 +21,7 @@ module.exports.doLogin = async (req, res) => {
     return res.redirect(pathToRedirect);
 }
 
-module.exports.showRegister = (req, res) => {
+module.exports.showRegister = async (req, res) => {
     res.newRender('auth/register', {layout: 'auth'});
 }
 

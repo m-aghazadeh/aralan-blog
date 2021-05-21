@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 require('./bootstrap')(app);
-require('./midlewares')(app);
+require('./middlewares')(app);
 require('./routes')(app);
 
 module.exports = () => {

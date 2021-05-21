@@ -6,6 +6,7 @@ const session = require('express-session');
 const cookeiParser = require('cookie-parser');
 const flash = require('connect-flash');
 const redisSessionStore = require('./session-handlers/redis')(session);
+const fileUpload = require('express-fileupload');
 
 
 module.exports = app => {
@@ -23,6 +24,10 @@ module.exports = app => {
         cookie: {maxAge: 600000},
         store: redisSessionStore,
         unset: 'destroy'
+    }));
+    app.use(fileUpload({
+        createParentPath:true,
+        useTempFiles:true,
     }));
     app.use(flash());
 }

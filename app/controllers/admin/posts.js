@@ -1,8 +1,9 @@
 const postsModel = require('../../models/post');
 const usersModel = require('../../models/user');
 const postStatuses = require('../../models/post/postStatus');
-const PostPresenter = require('../../presenters/post')
-const postValidator = require('../../validators/post')
+const PostPresenter = require('../../presenters/post');
+const postValidator = require('../../validators/post');
+const {v4: uuidv4} = require('uuid');
 
 exports.index = async (req, res) => {
     const posts = await postsModel.findAll();
@@ -21,24 +22,35 @@ exports.create = async (req, res) => {
 }
 
 exports.store = async (req, res) => {
+
+    console.log(req.files)
+    const fileExt = req.files.thumbnail.name.split('.')[1]
+    const newFileName = `${uuidv4()}.${fileExt}`;
+    console.log(newFileName)
     const postData = {
         title: req.body.postTitle,
         slug: req.body.postSlug,
         content: req.body.postContent,
         status: req.body.postStatus,
         author_id: req.body.author_id,
+        thumbnail: newFileName,
     }
     const errors = postValidator.create(postData);
 
     if (errors.length > 0) {
         req.flash('errors', errors);
-        res.redirect('/admin/posts/create');
-    } else {
-        const insertId = await postsModel.create(postData);
-        if (insertId) {
-            req.flash('success', 'پست با موفقیت ایجاد شد');
-            res.redirect('/admin/posts');
+        return res.redirect('/admin/posts/create');
+    }
+    const insertId = await postsModel.create(postData);
+    if (insertId) {
+        if (req.files.thumbnail) {
+            const fileNewPath = `${process.env.PWD}/public/upload/thumbnails/${newFileName}`;
+            req.files.thumbnail.mv(fileNewPath, (err) => {
+                console.log(err)
+            });
         }
+        req.flash('success', 'پست با موفقیت ایجاد شد');
+        res.redirect('/admin/posts');
     }
 }
 

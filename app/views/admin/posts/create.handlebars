@@ -11,12 +11,19 @@
                     </div>
                 {{/each}}
             {{/if}}
-            <form action="/admin/posts/store" method="POST">
+            <form action="/admin/posts/store" method="POST" enctype="multipart/form-data">
                 <div class="row mbn-20">
 
                     <div class="col-6 mb-20">
                         <input type="text" id="postTitle" name="postTitle" class="form-control"
                                placeholder="عنوان">
+                    </div>
+
+                    <div class="col-6 mb-20">
+                        <label>
+                            <div>تامبنیل</div>
+                            <input type="file" class="dropify" name="thumbnail" placeholder="تامبنیل" accept="image/*">
+                        </label>
                     </div>
                     <div class="col-6 mb-20">
                         <input type="text" id="postSlug" name="postSlug" class="form-control"

@@ -5,6 +5,7 @@ const commentModel = require('../../models/comment');
 const userService = require('../../services/userService');
 const dateService = require('../../services/dateService');
 const _ = require('lodash');
+const settingModel = require('../../models/settings');
 
 exports.showPost = async (req, res) => {
     const postSlug = req.params.postSlug;
@@ -23,12 +24,15 @@ exports.showPost = async (req, res) => {
         return comment;
     });
 
-    const newComments = _.groupBy(presentedcomments, 'parent')
+    let pageTitle = await settingModel.get('website_title');
+    const newComments = _.groupBy(presentedcomments, 'parent');
+
     res.frontRender(
         'front/single', {
             post,
             comments: newComments[0],
             bodyClass: 'single-post',
+            title: `${post.title} | ${pageTitle}`,
             helpers: {
                 hasChildren: function (commentId) {
                     return commentId in newComments;

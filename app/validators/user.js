@@ -11,7 +11,6 @@ exports.create = (data) => {
             errors.push(messages[item])
         }
     }
-    console.log(errors)
     return errors;
 }
 
